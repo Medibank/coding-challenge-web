@@ -3,6 +3,7 @@ import axios from 'axios';
 // Define interfaces for Person and Cat data
 export interface Cat {
   name: string;
+  type: string;
 }
 
 export interface Person {

@@ -21,8 +21,8 @@ describe('CatController', () => {
         gender: 'Male',
         age: 30,
         pets: [
-          { name: 'Felix' },
-          { name: 'Buddy' }
+          { name: 'Felix', type: 'Cat' },
+          { name: 'Buddy', type: 'Cat' }
         ]
       },
       {
@@ -30,7 +30,7 @@ describe('CatController', () => {
         gender: 'Female',
         age: 25,
         pets: [
-          { name: 'Whiskers' }
+          { name: 'Whiskers', type: 'Cat' }
         ]
       },
       {
@@ -38,7 +38,7 @@ describe('CatController', () => {
         gender: 'Male',
         age: 40,
         pets: [
-          { name: 'Amber' }
+          { name: 'Amber', type: 'Cat' }
         ]
       },
       {
@@ -61,7 +61,40 @@ describe('CatController', () => {
     expect(mockDataSource.fetchPeopleData).toHaveBeenCalledTimes(1);
   });
   
-  it('should handle empty pet arrays', async () => {
+  it('should filter only cats from pets', async () => {
+    const mockPeopleData: Person[] = [
+      {
+        name: 'John',
+        gender: 'Male',
+        age: 30,
+        pets: [
+          { name: 'Felix', type: 'Cat' },
+          { name: 'Rover', type: 'Dog' }
+        ]
+      },
+      {
+        name: 'Jane',
+        gender: 'Female',
+        age: 25,
+        pets: [
+          { name: 'Whiskers', type: 'Cat' },
+          { name: 'Goldie', type: 'Fish' }
+        ]
+      }
+    ];
+    
+    mockDataSource.fetchPeopleData.mockResolvedValueOnce(mockPeopleData);
+    
+    const result = await controller.getCatsByOwnerGender();
+    
+    expect(result).toEqual({
+      'Male': ['Felix'],
+      'Female': ['Whiskers']
+    });
+    
+    expect(mockDataSource.fetchPeopleData).toHaveBeenCalledTimes(1);
+  });
+  
     const mockPeopleData: Person[] = [
       {
         name: 'John',
@@ -74,7 +107,7 @@ describe('CatController', () => {
         gender: 'Female',
         age: 25,
         pets: [
-          { name: 'Whiskers' }
+          { name: 'Whiskers', type: 'Cat' }
         ]
       }
     ];

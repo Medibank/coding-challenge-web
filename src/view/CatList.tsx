@@ -36,8 +36,9 @@ const CatList: React.FC = () => {
 
   if (isLoading) {
     return (
-      <Box display="flex" justifyContent="center" alignItems="center" minHeight="50vh">
+      <Box display="flex" flexDirection="column" justifyContent="center" alignItems="center" minHeight="50vh">
         <CircularProgress color="primary" />
+        <Typography sx={{ mt: 2 }}>Loading cat data...</Typography>
       </Box>
     );
   }
