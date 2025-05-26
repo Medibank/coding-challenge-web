@@ -1,4 +1,13 @@
 import React, { useEffect, useState } from 'react';
+import { 
+  Container, 
+  Typography, 
+  Box, 
+  CircularProgress, 
+  Alert, 
+  AlertTitle 
+} from '@mui/material';
+import { Pets } from '@mui/icons-material';
 import { CatController } from '../controller/CatController';
 import { CatsByGender } from '../model/CatDataSource';
 import GenderSection from './GenderSection';
@@ -26,25 +35,41 @@ const CatList: React.FC = () => {
   }, []);
 
   if (isLoading) {
-    return <div className="text-center py-10">Loading cat data...</div>;
+    return (
+      <Box display="flex" justifyContent="center" alignItems="center" minHeight="50vh">
+        <CircularProgress color="primary" />
+      </Box>
+    );
   }
 
   if (error) {
-    return <div className="text-center py-10 text-red-500">{error}</div>;
+    return (
+      <Box sx={{ p: 3 }}>
+        <Alert severity="error">
+          <AlertTitle>Error</AlertTitle>
+          {error}
+        </Alert>
+      </Box>
+    );
   }
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <h1 className="text-3xl font-bold text-center mb-10 text-gray-900">Cats By Owner Gender</h1>
+    <Container maxWidth="md" sx={{ py: 4 }}>
+      <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', mb: 4 }}>
+        <Pets sx={{ mr: 1, fontSize: 35 }} color="primary" />
+        <Typography variant="h1" component="h1" align="center" color="primary">
+          Cats By Owner Gender
+        </Typography>
+      </Box>
       
       {Object.keys(catsByGender).length === 0 ? (
-        <p className="text-center text-gray-700">No cats found.</p>
+        <Alert severity="info">No cats found.</Alert>
       ) : (
         Object.entries(catsByGender).map(([gender, catNames]) => (
           <GenderSection key={gender} gender={gender} catNames={catNames} />
         ))
       )}
-    </div>
+    </Container>
   );
 };
 
