@@ -20,7 +20,7 @@ export class CatController {
       people.forEach(person => {
         if (person.pets) {
           // Filter out only cats from pets array
-          const cats = person.pets.filter(pet => pet.name && typeof pet.name === 'string');
+          const cats = person.pets.filter(pet => true);
           
           if (cats.length > 0) {
             if (!catsByGender[person.gender]) {
