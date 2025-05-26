@@ -35,3 +35,76 @@ Jasper
 Notes
 
 ```
+
+## Solution
+
+This solution is implemented using React with TypeScript and follows SOLID principles with a separation of concerns inspired by MVC (Model-View-Controller) architecture.
+
+### Architecture
+
+The application is structured as follows:
+
+#### Model
+- `CatDataSource.ts` - Handles data fetching from the API using Axios
+  - Defines data interfaces and provides methods to fetch data
+
+#### Controller
+- `CatController.ts` - Processes the data from the model
+  - Filters pet data to get only cats
+  - Groups cats by owner gender
+  - Sorts cats alphabetically
+
+#### View
+- `CatList.tsx` - Main component that orchestrates data fetching and rendering
+- `GenderSection.tsx` - Component that renders a gender section with its cats list
+
+### Technologies Used
+
+- React for the UI
+- TypeScript for type safety
+- Axios for API calls
+- Tailwind CSS for styling
+
+### SOLID Principles Application
+
+1. **Single Responsibility Principle**
+   - Each class has a single responsibility:
+     - `CatDataSource` is responsible for data fetching
+     - `CatController` is responsible for data processing
+     - View components are responsible for rendering UI
+
+2. **Open/Closed Principle**
+   - Components are designed to be extended without modification
+   - New view components can be added without changing existing code
+
+3. **Liskov Substitution Principle**
+   - Components use interfaces for type definitions, allowing for polymorphism
+
+4. **Interface Segregation Principle**
+   - Small, focused interfaces are used
+
+5. **Dependency Inversion Principle**
+   - High-level modules don't depend on low-level modules directly
+   - Dependencies are injected (e.g., CatDataSource into CatController)
+
+### How to Run
+
+1. Clone the repository
+2. Install dependencies
+   ```bash
+   npm install
+   ```
+3. Start the development server
+   ```bash
+   npm start
+   ```
+4. Open your browser and navigate to http://localhost:3000
+
+### Building for Production
+
+To build the application for production:
+```bash
+npm run build
+```
+
+This will create a `build` directory with optimized production build.
